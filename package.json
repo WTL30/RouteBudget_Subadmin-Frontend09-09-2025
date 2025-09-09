@@ -6,14 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "patch-package"
+    "lint": "next lint"
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.7",
     "@react-pdf/renderer": "^4.3.0",
     "axios": "^1.8.4",
-    "car-expense": "file:",
     "file-saver": "^2.0.5",
     "framer-motion": "^12.5.0",
     "jspdf": "^3.0.1",
@@ -21,7 +19,7 @@
     "leaflet": "^1.9.4",
     "lucide-react": "^0.479.0",
     "net": "^1.0.2",
-    "next": "15.2.1",
+    "next": "^15.2.1",
     "nookies": "^2.5.2",
     "number-to-words": "^1.2.4",
     "react": "^19.0.0",
