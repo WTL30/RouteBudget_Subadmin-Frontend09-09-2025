@@ -6,7 +6,7 @@
 //   MdGpsFixed,
 //   MdLocationOn,
 //   MdSpeed,
-//   MdBatteryFull,
+//   MdBatteryFull
 //   MdSignalCellular4Bar,
 //   MdPerson,
 //   MdMap,
@@ -2916,8 +2916,21 @@ const DynamicGPSTracking = () => {
   const wsRef = useRef(null)
   const reconnectTimeoutRef = useRef(null)
 
-  const API_BASE_URL = "https://api.routebudget.com/api"
-  const WS_URL = "ws://localhost:6010"
+  // Prefer env-configured endpoints; derive WS from API as a fallback
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.routebudget.com/api"
+  const WS_URL =
+    process.env.NEXT_PUBLIC_WS_URL ||
+    (() => {
+      try {
+        const api = new URL(API_BASE_URL)
+        const wsProto = api.protocol === "https:" ? "wss:" : "ws:"
+        // Heuristic: if API ends with /api, use /ws for websocket path; otherwise reuse same path
+        const inferredPath = /\/api\/?$/.test(api.pathname) ? "/ws" : api.pathname
+        return `${wsProto}//${api.host}${inferredPath}`
+      } catch {
+        return "ws://localhost:7001"
+      }
+    })()
 
   const getAuthHeaders = () => {
     const token = localStorage.getItem("token")
